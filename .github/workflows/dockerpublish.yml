@@ -14,7 +14,7 @@ jobs:
           pattern: '/'
           string: 'devops/fargate/asd'
           replace-with: '-'  
-      - uses: actions/checkout@v2
-
       - name: Run tests
-        run: echo ${steps.name.outputs}
+        env: 
+          TAG_NAME: "{{steps.name.outputs.replaced}}"
+        run: printenv

@@ -8,7 +8,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: frabert/replace-string-action@v1.1
+        id: name
+        with:
+          pattern: '/'
+          string: 'devops/fargate/asd'
+          replace-with: '-'  
       - uses: actions/checkout@v2
 
       - name: Run tests
-        run: docker build --help
+        run: echo ${steps.name.outputs}

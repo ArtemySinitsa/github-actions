@@ -17,4 +17,4 @@ jobs:
       - name: Run tests
         env: 
           TAG_NAME: ${{steps.name.outputs.replaced}}
-        run: printenv
+        run: echo $TAG_NAME

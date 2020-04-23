@@ -16,5 +16,5 @@ jobs:
           replace-with: '-'  
       - name: Run tests
         env: 
-          TAG_NAME: "{{steps.name.outputs.replaced}}"
+          TAG_NAME: ${{steps.name.outputs.replaced}}
         run: printenv

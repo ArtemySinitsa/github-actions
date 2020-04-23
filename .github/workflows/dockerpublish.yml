@@ -7,14 +7,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: frabert/replace-string-action@v1.1
-        id: name
-        with:
-          pattern: '/'
-          string: 'devops/fargate/asd'
-          replace-with: '-'  
-      - name: Run tests
-        env: 
-          TAG_NAME: ${{steps.name.outputs.replaced}}
-        run: echo $TAG_NAME
+    steps:	
+      - name: Dump GitHub context	
+        env:	
+          GITHUB_CONTEXT: ${{ toJson(github) }}	
+        run: echo "$GITHUB_CONTEXT"

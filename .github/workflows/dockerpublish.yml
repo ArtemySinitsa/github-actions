@@ -2,20 +2,14 @@ name: Main
 
 on: push
 
+env:
+  services: "document-server=development,market-research=staging"
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: ${{ fromJSON("[\"Webapp=${{ github.event.inputs.branch }}]\",${{ env.services }}}}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Build
-        run: echo ${{ github.sha }} > Release.txt
-      - name: a11
-        run: echo ${{github.ref_name}}
-      - name: Test
-        run: cat Release.txt
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: Release.txt
+        run: echo "${{ matrix.service }}"

@@ -12,4 +12,4 @@ jobs:
     #     service: ${{ fromJSON("[\"Webapp=${{ github.event.inputs.branch }}]\", ${{ env.services }}}}
     steps:
       - name: Build
-        run: echo "${{ fromJSON("[\"Webapp=${{ github.event.inputs.branch }}]\", ${{ env.services }}}}""
+        run: echo "${{ fromJSON(format("[{0}, {1}]", "Webapp=${{ github.event.inputs.branch }}", ${{ env.services }}))}}"

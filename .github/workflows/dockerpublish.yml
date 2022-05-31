@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: ${{ fromJSON(env.services) }}
+        service: ${{ fromJSON(github.event.inputs.services_to_deploy) }}
     steps:
       - name: Build
         run: echo "${{ matrix.service }}"

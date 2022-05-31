@@ -1,18 +1,13 @@
 name: Main
 
 on:
-  workflow_dispatch:
-    inputs:
-      services_to_deploy:
-        description: Comma separated list of services to deploy document-server=development,market-research=staging
-        default: '["document-server=development","market-research=staging"]'
-
+  push
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: ${{ fromJSON(github.event.inputs.services_to_deploy) }}
+        service: ["document-server=development","market-research=staging"]
     steps:
       - name: Build
         run: echo "${{ matrix.service }}"
@@ -21,4 +16,4 @@ jobs:
     needs: build
     steps:
       - name: Test
-        run: echo "${{ fromJSON(needs.build) }}"
+        run: echo "${{ fromJSON(needs) }}"

@@ -29,8 +29,15 @@ jobs:
           script: |
             const result = await github.rest.actions.listJobsForWorkflowRun({
                 owner: context.repo.owner,
-              repo: context.repo.repo,
+                repo: context.repo.repo,
                 run_id: context.runId
                 });
-              result.data.jobs.map(console.log)
-              console.log(result)
+              const a = result.data.jobs.map(job=> {
+                return {
+                  job: `${job.name} is ${job.status} with the status ${job.conclusion}`
+                  url: job.run_url,
+                  started_at: job.started_at,
+                  completed_at: job.completed_at,
+                }
+              })
+              console.log(a)

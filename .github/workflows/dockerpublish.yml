@@ -28,6 +28,8 @@ jobs:
         with:
           script: |
             const result = await github.rest.actions.listJobsForWorkflowRun({
+                owner: context.owner,
+                repo: context.repo,
                 run_id: context.runId
                 });
               console.log(result)

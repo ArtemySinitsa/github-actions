@@ -11,9 +11,20 @@ jobs:
     steps:
       - name: Build
         run: echo "${{ matrix.service }}"
-  test:
+  check:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Test
         run: echo "${{ needs.build.result }}"
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [build, check]
+    steps:
+      - name: Test
+        run: echo "${{ needs.build.result }}"
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.log(context, github)

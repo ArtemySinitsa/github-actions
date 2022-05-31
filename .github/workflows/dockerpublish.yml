@@ -7,9 +7,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service: ${{ fromJSON("[\"Webapp=${{ github.event.inputs.branch }}]\",${{ env.services }}}}
+    # strategy:
+    #   matrix:
+    #     service: ${{ fromJSON("[\"Webapp=${{ github.event.inputs.branch }}]\", ${{ env.services }}}}
     steps:
       - name: Build
-        run: echo "${{ matrix.service }}"
+        run: echo "${{ fromJSON("[\"Webapp=${{ github.event.inputs.branch }}]\", ${{ env.services }}}}""

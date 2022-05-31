@@ -1,9 +1,12 @@
 name: Main
 
-on: push
+on:
+  workflow_dispatch:
+    inputs:
+      services_to_deploy:
+        description: Comma separated list of services to deploy document-server=development,market-research=staging
+        default: '["document-server=development","market-research=staging"]'
 
-env:
-  services: "["document-server=development","market-research=staging"]"
 jobs:
   build:
     runs-on: ubuntu-latest

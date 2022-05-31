@@ -27,7 +27,7 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-          const result = await github.rest.actions.listJobsForWorkflowRun({
-              run_id: context.runId
-              });
-            console.log(result)
+            const result = await github.rest.actions.listJobsForWorkflowRun({
+                run_id: context.runId
+                });
+              console.log(result)

@@ -34,7 +34,7 @@ jobs:
                 });
               const a = result.data.jobs.map(job=> {
                 return {
-                  job: `${job.name} is ${job.status} with the status ${job.conclusion}`
+                  job: `${job.name} is ${job.status} with the status ${job.conclusion}`,
                   url: job.run_url,
                   started_at: job.started_at,
                   completed_at: job.completed_at,

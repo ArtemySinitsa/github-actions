@@ -32,4 +32,5 @@ jobs:
               repo: context.repo.repo,
                 run_id: context.runId
                 });
+              result.data.jobs.map(console.log)
               console.log(result)

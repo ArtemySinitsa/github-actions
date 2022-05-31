@@ -3,13 +3,13 @@ name: Main
 on: push
 
 env:
-  services: "document-server=development,market-research=staging"
+  services: "["document-server=development","market-research=staging"]"
 jobs:
   build:
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     service: ${{ fromJSON("[\"Webapp=${{ github.event.inputs.branch }}]\", ${{ env.services }}}}
+    strategy:
+      matrix:
+        service: ${{ fromJSON(env.services) }}
     steps:
       - name: Build
-        run: echo "${{ fromJSON(format("[{0}, {1}]", ${{ env.services }}))}}"
+        run: echo "${{ matrix.service }}"

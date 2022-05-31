@@ -16,4 +16,4 @@ jobs:
     needs: build
     steps:
       - name: Test
-        run: echo "${{ fromJSON(needs) }}"
+        run: echo "${{ needs.build.result }}"

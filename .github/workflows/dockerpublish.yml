@@ -32,5 +32,5 @@ jobs:
         with:
           github-token: ${{ github.token }}
           number: ${{ steps.pr.outputs.pr_number }}
-          method: merge
+          method: rebase
           repo: ArtemySinitsa/github-actions

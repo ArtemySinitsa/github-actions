@@ -7,12 +7,6 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: pull-request
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: "development"
-          source_branch: "jack-1"
-          github_token: ${{ github.token }}
+      - uses: actions/checkout@v3
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4

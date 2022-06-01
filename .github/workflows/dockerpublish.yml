@@ -14,3 +14,4 @@ jobs:
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: "development"
+          github_token: ${{ github.token }}

@@ -27,6 +27,7 @@ jobs:
           pr_body: ":crown: *An automated PR*"
           pr_label: "backmerge"
           pr_reviewer: "${{ github.actor }}"
+          pr_assignee: "${{ github.actor }}"
       - uses: peter-evans/enable-pull-request-automerge@v2
         with:
           token: ${{ github.token }}

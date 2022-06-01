@@ -6,7 +6,6 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
       - uses: actions/checkout@v2
         with:
@@ -16,4 +15,5 @@ jobs:
         with:
           title: Update AUTHORS
           body: Credit new contributors by updating AUTHORS
-          branch: development
+          branch: backmerge-test
+          base: development

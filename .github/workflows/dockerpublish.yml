@@ -1,19 +1,36 @@
-name: Main
+name: Backmerge
+# Necessary to resolve conflicts between master/release* branches asap
 
 on:
   push:
-    branches: [master, release/v*]
+    branches: [master]
 jobs:
-  check:
+  create-pull-request:
+    name: Create Pull Request
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: peterjgrainger/action-create-branch@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          fetch-depth: 0
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+          branch: 'backmerge/release-${{ github.sha }}'
+          sha: ${{ github.sha }}
+      - name: pull-request
+        id: pr
+        uses: repo-sync/pull-request@v2
         with:
-          title: Update AUTHORS
-          body: Credit new contributors by updating AUTHORS
-          branch: development
+          destination_branch: "development"
+          source_branch: 'backmerge/release-${{ github.sha }}'
+          github_token: ${{ github.token }}
+          pr_title: "[BACKMERGE] ${{ github.ref_name }} into development"
+          pr_body: ":crown: *An automated PR*"
+          pr_label: "backmerge"
+          pr_reviewer: "${{ github.actor }}"
+      - name: Merge Pull Request
+        uses: juliangruber/merge-pull-request-action@v1
+        with:
+          github-token: ${{ github.token }}
+          number: ${{ steps.pr.outputs.pr_number }}
+          method: merge
+          repo: ArtemySinitsa/github-actions

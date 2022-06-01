@@ -24,4 +24,5 @@ jobs:
           github_token: ${{ github.token }}
           pr_title: "[BACKMERGE] ${{ github.ref_name }} into development"
           pr_body: ":crown: *An automated PR*"
-          pr_label: "backmerge" 
+          pr_label: "backmerge"
+          pr_reviewer: "${{ github.actor }}"

@@ -20,3 +20,6 @@ jobs:
           destination_branch: "development"
           source_branch: 'backmerge/release-${{ github.sha }}'
           github_token: ${{ github.token }}
+          pr_title: "[BACKMERGE] ${{ github.ref }} into development"
+          pr_body: ":crown: *An automated PR*"
+          pr_label: "backmerge" 

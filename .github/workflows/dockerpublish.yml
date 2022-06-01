@@ -13,7 +13,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           branch: 'release/backmerge'
-          sha: '${{ github.event.pull_request.head.sha }}'
+          sha: 'master'
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:

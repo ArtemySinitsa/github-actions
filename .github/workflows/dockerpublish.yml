@@ -17,6 +17,7 @@ jobs:
           branch: 'backmerge/release-${{ github.sha }}'
           sha: ${{ github.sha }}
       - name: pull-request
+        id: pr
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: "development"
@@ -26,3 +27,10 @@ jobs:
           pr_body: ":crown: *An automated PR*"
           pr_label: "backmerge"
           pr_reviewer: "${{ github.actor }}"
+      - name: Merge Pull Request
+        uses: juliangruber/merge-pull-request-action@v1
+        with:
+          github-token: ${{ github.token }}
+          number: ${{ steps.pr.outputs.pr_number }}
+          method: merge
+          repo: ArtemySinitsa/github-actions

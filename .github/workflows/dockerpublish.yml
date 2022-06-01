@@ -12,8 +12,3 @@ jobs:
           fetch-depth: 0
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
-        with:
-          title: Update AUTHORS
-          body: Credit new contributors by updating AUTHORS
-          base: development
-          rebase: false

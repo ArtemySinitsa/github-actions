@@ -12,10 +12,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          branch: 'release/backmerge'
-          sha: 'master'
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+          branch: 'backmerge/release-${{ github.sha }}'
+          sha: ${{ github.sha }}
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
         with:
-          base: development
-          branch: 'release/backmerge'
+          destination_branch: "development"
+          source_branch: 'backmerge/release-${{ github.sha }}'
+          github_token: ${{ github.token }}

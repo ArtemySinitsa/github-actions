@@ -1,10 +1,12 @@
-name: Main
+name: Backmerge
+# Necessary to resolve conflicts between master/release* branches asap
 
 on:
   push:
     branches: [master]
 jobs:
-  check:
+  create-pull-request:
+    name: Create Pull Request
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,6 +22,6 @@ jobs:
           destination_branch: "development"
           source_branch: 'backmerge/release-${{ github.sha }}'
           github_token: ${{ github.token }}
-          pr_title: "[BACKMERGE] ${{ github.ref }} into development"
+          pr_title: "[BACKMERGE] ${{ github.ref_name }} into development"
           pr_body: ":crown: *An automated PR*"
           pr_label: "backmerge" 

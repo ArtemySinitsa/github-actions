@@ -8,7 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: peterjgrainger/action-create-branch@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          branch: 'release/backmerge'
+          sha: '${{ github.event.pull_request.head.sha }}'
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           base: development
+          branch: 'release/backmerge'

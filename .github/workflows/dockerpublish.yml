@@ -1,12 +1,12 @@
 name: Backmerge
 # Necessary to resolve conflicts between master/release* branches asap
 
-on:
-  push:
-    branches: [master]
+# on:
+#   push:
+#     branches: [master]
 jobs:
-  create-pull-request:
-    name: Create Pull Request
+  release:
+    name: Create GH release
     runs-on: ubuntu-latest
     steps:
       - uses: ncipollo/release-action@v1

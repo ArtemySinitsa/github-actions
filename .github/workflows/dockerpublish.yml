@@ -13,6 +13,6 @@ jobs:
         with:
           allowUpdates: true
           generateReleaseNotes: true
-          tag: v17
+          tag: v18
           commit: ${{github.sha}}
           token: ${{ github.token }}

@@ -1,9 +1,9 @@
 name: Backmerge
 # Necessary to resolve conflicts between master/release* branches asap
 
-# on:
-#   push:
-#     branches: [master]
+on:
+  push:
+    branches: [master]
 jobs:
   release:
     name: Create GH release

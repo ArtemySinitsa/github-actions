@@ -1,9 +1,9 @@
 name: Backmerge
 # Necessary to resolve conflicts between master/release* branches asap
 
-# on:
-#   push:
-#     branches: [master]
+on:
+  push:
+    branches: [master]
 jobs:
   create-pull-request:
     name: Create Pull Request
@@ -14,5 +14,4 @@ jobs:
           allowUpdates: true
           generateReleaseNotes: true
           tag: v16
-          commit: ${{needs.merge-release-branch.outputs.sha}}
           token: ${{ github.token }}

@@ -13,5 +13,5 @@ jobs:
         with:
           allowUpdates: true
           generateReleaseNotes: true
-          tag: v16
+          tag: v17
           token: ${{ github.token }}

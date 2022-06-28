@@ -4,6 +4,7 @@ on: workflow_dispatch
 
 env:
   SLACK_CHANNEL: CGLFL82EN
+  SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
   APP: https://app.boweryvaluation.com
 jobs:
   slack-notify:

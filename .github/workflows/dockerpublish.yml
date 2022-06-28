@@ -13,51 +13,6 @@ jobs:
     name: Create GH release
     runs-on: ubuntu-latest
     steps:
-      - name: Post to an initial message to Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.19.0
-        with:
-          channel-id: ${{ env.SLACK_CHANNEL }}
-          payload: |
-            {
-              "text": "Production release ${{ github.event.inputs.version }} started :rocket:",
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "Production release ${{ github.event.inputs.version }} started :rocket:",
-                    "emoji": true
-                  }
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "<https://app.boweryvaluation.com|Production> will be in the :warning: maintenance mode for a while"
-                  },
-                  "accessory": {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "Release logs",
-                      "emoji": true
-                    },
-                    "value": "prod",
-                    "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                    "action_id": "button-action"
-                  }
-                },
-                {
-                  "type": "context",
-                  "elements": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*${{ github.actor }}* has started this release."
-                    }
-                  ]
-                }
-              ]
-            }
+      - run: echo "${{github}}"
 
 

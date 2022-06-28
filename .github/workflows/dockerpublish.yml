@@ -4,15 +4,60 @@ name: Backmerge
 on:
   push:
     branches: [master]
+
+env:
+  SLACK_CHANNEL: CGLFL82EN
+  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 jobs:
   release:
     name: Create GH release
     runs-on: ubuntu-latest
     steps:
-      - uses: ncipollo/release-action@v1
+      - name: Post to an initial message to Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.19.0
         with:
-          allowUpdates: true
-          generateReleaseNotes: true
-          tag: v19
-          commit: ${{github.sha}}
-          token: ${{ github.token }}
+          channel-id: ${{ env.SLACK_CHANNEL }}
+          payload: |
+            {
+              "text": "Production release ${{ github.event.inputs.version }} started :rocket:",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Production release ${{ github.event.inputs.version }} started :rocket:",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<https://app.boweryvaluation.com|Production> will be in the :warning: maintenance mode for a while"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "Release logs",
+                      "emoji": true
+                    },
+                    "value": "prod",
+                    "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                    "action_id": "button-action"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*${{ github.actor }}* has started this release."
+                    }
+                  ]
+                }
+              ]
+            }
+
+

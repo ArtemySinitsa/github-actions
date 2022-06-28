@@ -13,6 +13,6 @@ jobs:
     name: Create GH release
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{github}}"
+      - run: echo "${{github.context}}"
 
 

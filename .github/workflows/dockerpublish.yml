@@ -1,18 +1,20 @@
-name: Backmerge
-# Necessary to resolve conflicts between master/release* branches asap
+name: TESTSTTS
 
-on:
-  push:
-    branches: [master]
+on: workflow_dispatch
 
 env:
   SLACK_CHANNEL: CGLFL82EN
-  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  APP: https://app.boweryvaluation.com
 jobs:
-  release:
-    name: Create GH release
+  slack-notify:
+    name: SN
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{github.context}}"
-
-
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Post to an initial message to Slack channel
+        id: slack
+        uses: slackapi/slack-github-action@v1.19.0
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL }}
+          payload-file-path: .github/release-template.json

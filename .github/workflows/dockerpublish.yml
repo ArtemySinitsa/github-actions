@@ -20,6 +20,12 @@ jobs:
           channel-id: ${{ env.SLACK_CHANNEL }}
           payload-file-path: .github/release-template.json
 
+  slack-wow:
+    name: WOW
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hollo world"
+
 
   slack:
     if: ${{ always() }} # ensure this job always runs
@@ -29,5 +35,4 @@ jobs:
       - uses: ArtemySinitsa/action-slack-workflow-notifications@master
         with:
           channel-id:  ${{ env.SLACK_CHANNEL }}
-          ignore-jobs: slack
           ignore-steps: actions/checkout@v3

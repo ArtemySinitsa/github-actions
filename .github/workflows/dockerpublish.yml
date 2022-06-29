@@ -38,4 +38,5 @@ jobs:
         with:
           channel-id:  ${{ env.SLACK_CHANNEL }}
           ignore-steps: actions/checkout@v3
+          ignore-jobs: slack
           thread-ts: "${{ needs. slack-notify.outputs.thread }}"

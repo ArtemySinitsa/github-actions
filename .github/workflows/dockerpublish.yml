@@ -1,6 +1,6 @@
 name: TESTSTTS
 
-on: workflow_dispatch
+on: push
 
 env:
   SLACK_CHANNEL: CGLFL82EN
@@ -19,3 +19,15 @@ jobs:
         with:
           channel-id: ${{ env.SLACK_CHANNEL }}
           payload-file-path: .github/release-template.json
+
+
+  slack:
+    if: ${{ always() }} # ensure this job always runs
+    needs: [ slack-notify ] 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ArtemySinitsa/action-slack-workflow-notifications@v1
+        with:
+          channel-id:  ${{ env.SLACK_CHANNEL }}
+          ignore-jobs: slack
+          ignore-steps: actions/checkout@v3

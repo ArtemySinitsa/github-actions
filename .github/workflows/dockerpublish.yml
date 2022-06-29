@@ -31,7 +31,6 @@ jobs:
 
   ecs-deploy:
     runs-on: ubuntu-latest
-    needs: build-image
     name: Deploy Webapp to ECS
     permissions:
       id-token: write

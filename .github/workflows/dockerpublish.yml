@@ -26,7 +26,7 @@ jobs:
     needs: [ slack-notify ] 
     runs-on: ubuntu-latest
     steps:
-      - uses: ArtemySinitsa/action-slack-workflow-notifications@v1
+      - uses: ArtemySinitsa/action-slack-workflow-notifications@master
         with:
           channel-id:  ${{ env.SLACK_CHANNEL }}
           ignore-jobs: slack

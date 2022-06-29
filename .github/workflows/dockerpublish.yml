@@ -10,6 +10,8 @@ jobs:
   slack-notify:
     name: SN
     runs-on: ubuntu-latest
+    outputs:
+      thread: ${{ steps.slack.outputs.thread_ts }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,10 +31,11 @@ jobs:
 
   slack:
     if: ${{ always() }} # ensure this job always runs
-    needs: [ slack-notify ] 
+    needs: [ slack-notify, slack-wow ] 
     runs-on: ubuntu-latest
     steps:
       - uses: ArtemySinitsa/action-slack-workflow-notifications@master
         with:
           channel-id:  ${{ env.SLACK_CHANNEL }}
           ignore-steps: actions/checkout@v3
+          thread-ts: "${{ needs. slack-notify.outputs.thread }}"

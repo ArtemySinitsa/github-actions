@@ -29,14 +29,30 @@ jobs:
       - run: echo "Hollo world"
 
 
-  slack:
-    if: ${{ always() }} # ensure this job always runs
-    needs: [ slack-notify, slack-wow ] 
+  ecs-deploy:
     runs-on: ubuntu-latest
+    needs: build-image
+    name: Deploy Webapp to ECS
+    permissions:
+      id-token: write
+      contents: read
     steps:
-      - uses: ArtemySinitsa/action-slack-workflow-notifications@master
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
-          channel-id:  ${{ env.SLACK_CHANNEL }}
-          ignore-steps: actions/checkout@v3
-          ignore-jobs: slack
-          thread-ts: "${{ needs. slack-notify.outputs.thread }}"
+          role-to-assume: arn:aws:iam::814827541967:role/GithubOIDC-Role-QMKR3DR5WV3B
+          aws-region: "us-east-1"
+
+      - uses: Bowery-RES/action-aws-secrets@v1.1
+        with:
+          secrets: |
+            Github/Terraform/${{ env.DEPLOYMENT_ENVIRONMENT }}/Atlas
+            Github/Terraform/${{ env.DEPLOYMENT_ENVIRONMENT }}/Opensearch
+          parameters: |
+            /Github/Terraform/${{ env.DEPLOYMENT_ENVIRONMENT }}/WebApp_ECR_URL,
+            /Github/Terraform/${{ env.DEPLOYMENT_ENVIRONMENT }}/MongoDBAtlas_Cluster_Connection_Standard_Srv,
+            /Github/Terraform/${{ env.DEPLOYMENT_ENVIRONMENT }}/ECS_Cluster_Name,
+            /Github/Terraform/${{ env.DEPLOYMENT_ENVIRONMENT }}/ElasticSearch_Domain_Endpoint,
+            /Github/Terraform/${{ env.DEPLOYMENT_ENVIRONMENT }}/Webapp_UploadDocs_Bucket
+          namespace: false
+      - name: test
+        run: printenv

@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: slip
-        run: echo "${{ toJSON(github.event.head) }}"
+        run: echo "${{ toJSON(github.event.pull_request.head) }}"

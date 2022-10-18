@@ -18,7 +18,6 @@ jobs:
         output: drawio-assets
     - name: Get author and committer info from HEAD commit
       uses: rlespinasse/git-commit-data-action@v1
-      if: github.ref == 'refs/heads/main'
 
     - name: Commit changed files
       uses: stefanzweifel/git-auto-commit-action@v4
@@ -27,5 +26,4 @@ jobs:
         commit_user_name: "${{ env.GIT_COMMIT_COMMITTER_NAME }}"
         commit_user_email: "${{ env.GIT_COMMIT_COMMITTER_EMAIL }}"
         commit_author: "${{ env.GIT_COMMIT_AUTHOR }}"
-      if: github.ref == 'refs/heads/main'
  

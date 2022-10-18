@@ -13,6 +13,7 @@ jobs:
       with:
         path: /
         format: svg
+        action-mode: all
         transparent: true
         output: drawio-assets
  

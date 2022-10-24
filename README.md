@@ -8,7 +8,7 @@
 
 ```mermaid
 graph TD
-  A -> B
+  A --> B
 
 click A './a.md'
 ```

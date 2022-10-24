@@ -10,5 +10,5 @@
 graph TD
   A --> B
 
-click A "./a.md"
+click A "https://github.com/ArtemySinitsa/github-actions/tree/a.md"
 ```

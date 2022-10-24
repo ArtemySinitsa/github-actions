@@ -10,5 +10,5 @@
 graph TD
   A --> B
 
-click A './a.md'
+click A "./a.md"
 ```

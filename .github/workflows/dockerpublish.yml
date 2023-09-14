@@ -1,30 +1,19 @@
-name: TESTSTTS
-
-on: push
-
+name: Automatic Rebase
+on:
+  push:
+    branches:
+      - master
 jobs:
-  slack-notify:
-    name: SN
+  rebase:
+    name: Rebase
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Export drawio files to asciidoctor and png files
-        uses: rlespinasse/drawio-export-action@v2
+      - name: Checkout the latest code
+        uses: actions/checkout@v3
         with:
-          path: /
-          format: svg
-          action-mode: all
-          transparent: true
-          output: drawio-assets
-      - name: Get author and committer info from HEAD commit
-        uses: rlespinasse/git-commit-data-action@v1
-        if: github.ref == 'refs/heads/main'
-
-      - name: Commit changed files
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "docs: sync draw.io exported files"
-          commit_user_name: "${{ env.GIT_COMMIT_COMMITTER_NAME }}"
-          commit_user_email: "${{ env.GIT_COMMIT_COMMITTER_EMAIL }}"
-          commit_author: "${{ env.GIT_COMMIT_AUTHOR }}"
-        if: github.ref == 'refs/heads/main'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+      - name: Automatic Rebase
+        run: git rebase master development
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
